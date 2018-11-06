@@ -130,6 +130,20 @@ def playGame(wordList):
 
     hand = None
 
+    def play(hand):
+        while True:
+            playMode = input(
+                "Enter u to have yourself play, c to have the computer play: ")
+            if playMode == 'c':
+                compPlayHand(hand, wordList, HAND_SIZE)
+                break
+            elif playMode == 'u':
+                playHand(hand, wordList, HAND_SIZE)
+                break
+            else:
+                print("Invalid command.")
+                print()
+
     while True:
         userInput = input(
             "Enter n to deal a new hand, r to replay the last hand, or e to end game: ")
@@ -138,32 +152,11 @@ def playGame(wordList):
         elif userInput == 'r':
             if not hand:
                 print("You have not played a hand yet. Please play a new hand first!")
-            while True:
-                playMode = input(
-                    "Enter u to have yourself play, c to have the computer play: ")
-                if playMode == 'c':
-                    compPlayHand(hand, wordList, HAND_SIZE)
-                    break
-                elif playMode == 'u':
-                    playHand(hand, wordList, HAND_SIZE)
-                    break
-                else:
-                    print("Invalid command.")
-                    print()
+            else:
+               play(hand)
         elif userInput == 'n':
             hand = dealHand(HAND_SIZE)
-            while True:
-                playMode = input(
-                    "Enter u to have yourself play, c to have the computer play: ")
-                if playMode == 'c':
-                    compPlayHand(hand, wordList, HAND_SIZE)
-                    break
-                elif playMode == 'u':
-                    playHand(hand, wordList, HAND_SIZE)
-                    break
-                else:
-                    print("Invalid command.")
-                    print()
+            play(hand)
         else:
             print("Invalid command.")
         print()
